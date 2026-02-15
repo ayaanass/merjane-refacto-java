@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Deprecated
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/v1/orders")
 public class MyController {
     @Autowired
     private ProductService ps;

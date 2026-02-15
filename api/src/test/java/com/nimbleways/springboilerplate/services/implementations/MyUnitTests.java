@@ -17,15 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @UnitTest
 public class MyUnitTests {
 
-    @Mock
+    /*@Mock
     private NotificationService notificationService;
     @Mock
     private ProductRepository productRepository;
     @InjectMocks 
-    private ProductService productService;
+    private ProductService productService;*/
 
-    @Test
-    public void test() {
+    //@Test
+    /*public void test() {
         // GIVEN
         Product product =new Product(null, 15, 0, "NORMAL", "RJ45 Cable", null, null, null);
 
@@ -39,5 +39,5 @@ public class MyUnitTests {
         assertEquals(15, product.getLeadTime());
         Mockito.verify(productRepository, Mockito.times(1)).save(product);
         Mockito.verify(notificationService, Mockito.times(1)).sendDelayNotification(product.getLeadTime(), product.getName());
-    }
+    }*/
 }

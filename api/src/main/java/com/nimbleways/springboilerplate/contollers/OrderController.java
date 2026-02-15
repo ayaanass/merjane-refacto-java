@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 // Controller pour gérer les commandes (orders)
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/v2/orders")
 public class OrderController {
 
     private final OrderProcessingService orderProcessingService;

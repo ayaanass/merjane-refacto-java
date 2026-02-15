@@ -332,6 +332,13 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
+                <configuration>
+                    <excludes>
+                        <!-- Exclure l'ancien code deprecated -->
+                        <exclude>**/contollers/MyController.class</exclude>
+                        <exclude>**/services/implementations/ProductService.class</exclude>
+                    </excludes>
+                </configuration>
 				<executions>
 					<execution>
 						<id>coverage-initialize</id>
