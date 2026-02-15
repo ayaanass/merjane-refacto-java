@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+    id: v2-1-add-product-indexes
+    author: anass
+    comment: "Ajout des indexes pour améliorer les performances"
+    changes:
+      # Index sur le type de produit
+      - createIndex:
+          indexName: idx_products_type
+          tableName: products
+          columns:
+            - column:
+                name: type
+
+      # Index composite pour les produits saisonniers
+      - createIndex:
+          indexName: idx_products_seasonal
+          tableName: products
+          columns:
+            - column:
+                name: type
+            - column:
+                name: season_start_date
+            - column:
+                name: season_end_date
+          where: "type = 'SEASONAL'"
+
+      # Index pour les produits périssables
+      - createIndex:
+          indexName: idx_products_expirable
+          tableName: products
+          columns:
+            - column:
+                name: type
+            - column:
+                name: expiry_date
+          where: "type = 'EXPIRABLE'"
+
+      # Index sur available pour les requêtes de stock
+      - createIndex:
+          indexName: idx_products_available
+          tableName: products
+          columns:
+            - column:
+                name: available
+
+    rollback:
+      - dropIndex:
+          indexName: idx_products_type
+          tableName: products
+      - dropIndex:
+          indexName: idx_products_seasonal
+          tableName: products
+      - dropIndex:
+          indexName: idx_products_expirable
+          tableName: products
+      - dropIndex:
+          indexName: idx_products_available
+          tableName: products

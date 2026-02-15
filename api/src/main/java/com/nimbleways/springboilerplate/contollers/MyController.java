@@ -20,6 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @deprecated Cette classe est obsolète et doit être suprimée
+ * Utilisez OrderController à la place.
+ *
+ * Ce controller est maintenu uniquement pour la compatibilité avec les anciens clients.
+ * La logique métier a été refactorisée dans OrderProcessingService.
+ */
+@Deprecated
 @RestController
 @RequestMapping("/orders")
 public class MyController {
@@ -32,6 +40,10 @@ public class MyController {
     @Autowired
     private OrderRepository or;
 
+    /**
+     * @deprecated Utilisez OrderController.processOrder() à la place
+     */
+    @Deprecated
     @PostMapping("{orderId}/processOrder")
     @ResponseStatus(HttpStatus.OK)
     public ProcessOrderResponse processOrder(@PathVariable Long orderId) {

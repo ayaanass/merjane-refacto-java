@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+    id: v2-2-add-product-constraints
+    author: anass
+    comment: "Ajout des contraintes de validation"
+    changes:
+      # Type doit être non-null
+      - addNotNullConstraint:
+          tableName: products
+          columnName: type
+          columnDataType: VARCHAR(50)
+
+      # LeadTime doit être positif ou null
+      - sql:
+          sql: |
+            ALTER TABLE products 
+            ADD CONSTRAINT check_lead_time_positive 
+            CHECK (lead_time IS NULL OR lead_time >= 0);
+
+      # Available doit être positif ou null
+      - sql:
+          sql: |
+            ALTER TABLE products 
+            ADD CONSTRAINT check_available_positive 
+            CHECK (available IS NULL OR available >= 0);
+
+      # Type doit être une valeur valide
+      - sql:
+          sql: |
+            ALTER TABLE products 
+            ADD CONSTRAINT check_product_type_valid 
+            CHECK (type IN ('NORMAL', 'SEASONAL', 'EXPIRABLE'));
+
+    rollback:
+      - dropNotNullConstraint:
+          tableName: products
+          columnName: type
+      - sql:
+          sql: |
+            ALTER TABLE products DROP CONSTRAINT IF EXISTS check_lead_time_positive;
+            ALTER TABLE products DROP CONSTRAINT IF EXISTS check_available_positive;
+            ALTER TABLE products DROP CONSTRAINT IF EXISTS check_product_type_valid;
